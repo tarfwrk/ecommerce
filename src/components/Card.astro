@@ -1,0 +1,40 @@
+astro
+---
+interface Props {
+    title: string;
+    image: string;
+    price: number;
+    description: string;
+    id: number; 
+}
+
+const { title, image, price, description, id } = Astro.props;
+
+import { addItem } from '../stores/cart';
+
+const handleAddToCart = () => {
+  addItem({ id, title, image, price, quantity: 1 });
+  alert(`Added ${title} to cart!`);
+};
+---
+
+<div class="relative group">
+    <div class="overflow-hidden aspect-w-1 aspect-h-1">
+        <img class="object-cover w-full h-full transition-all duration-300 group-hover:scale-125" src={image} alt={title} />
+    </div>
+    <div class="flex items-start justify-between mt-4 space-x-4">
+        <div>
+            <h3 class="text-xs font-bold text-gray-900 sm:text-sm md:text-base">
+                <a href="#" title="">
+                    {title}
+                    <span class="absolute inset-0" aria-hidden="true"></span>
+                </a>
+            </h3>
+            <p class="mt-1 text-sm text-gray-500">{description}</p> 
+        </div>
+        <div class="text-right">
+            <p class="text-xs font-bold text-gray-900 sm:text-sm md:text-base">${price}</p>
+            <button onClick={handleAddToCart}>Add to Cart</button> 
+        </div>
+    </div>
+</div>
